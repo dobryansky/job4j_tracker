@@ -33,7 +33,16 @@ public class TrackerTest {
         assertThat(result[0].getName(), is("test1"));
     }
 
-
+    @Test
+    public void whenReplace() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("Need to replace");
+        tracker.add(item);
+        String id = item.getId();
+        Item replaced = new Item("Already replaced");
+        tracker.replace(id, replaced);
+        assertThat(tracker.findById(id).getName(), is("Already replaced"));
+    }
 
 
 }
