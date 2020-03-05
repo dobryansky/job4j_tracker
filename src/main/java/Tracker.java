@@ -79,7 +79,7 @@ public class Tracker {
     /**
      * Метод , который возвращает index по id.
      *
-     * @return rsl возвращает массив заявок с заданным id без null элементов.
+     * @return rsl
      */
     private int indexOf(String id) {
         int rsl = -1;
@@ -95,22 +95,51 @@ public class Tracker {
     /**
      * Метод , который заменяет заявки по имени, но id остается тот же самый.
      *
-     * @return result возвращает массив заявок с заданным id без null элементов.
+     * @return result
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
-                result = true;
-                item.setId(id);
-                items[i] = item;
-                break;
-            }
+        int index= indexOf(id);
+        if (index!=-1) {
+            result = true;
+
+            item.setId(id);
+            items[index] = item;
         }
 
         return result;
 
     }
+    /**
+     * Метод  удаления заявок из массива
+     *
+     * @return result
+     */
+  public boolean delete(String id) {
+      boolean result =false;
+
+      int index=indexOf(id);
+
+      for (int i = 0; i < position; i++) {
+          if (index!=-1) {
+              result = true;
+              items[indexOf(id)] = null;
+
+              int start = index + 1;
+              int distPos = index;
+              int size = position - index;
+              System.arraycopy(items, start, items, distPos, size);
+              break;
+          }
+      }
+
+      items[position - 1] = null;
+      position--;
+return result;
+    }
+
+
+
 
 }
 

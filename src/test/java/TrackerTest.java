@@ -44,5 +44,25 @@ public class TrackerTest {
         assertThat(tracker.findById(id).getName(), is("Already replaced"));
     }
 
+    @Test
+    public void whenDeleteItem() {
+        Tracker tracker = new Tracker();
+        Item item1 =         new Item("test 1");
+        Item willbedeleted = new Item("will be deleted");
+        Item item2 =         new Item("test 2");
+
+        tracker.add(item1);
+        tracker.add(willbedeleted);
+        tracker.add(item2);
+
+       String needDelete=willbedeleted.getId();
+       tracker.delete(needDelete);
+        Item[] result = tracker.findAll();
+
+        assertThat(result[1].getName(), is("test 2"));
+    }
+
+
+
 
 }
