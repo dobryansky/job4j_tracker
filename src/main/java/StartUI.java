@@ -21,9 +21,9 @@ public class StartUI {
 
             else if (select == 1) {
                 System.out.println("=== Showing all items ====");
-                Item [] result = tracker.findAll();
-                for (int i=0; i<result.length; i++){
-                    System.out.println("name -" + result[i].getName() + " | id " +result[i].getId() );
+                items = tracker.findAll();
+                for (int i=0; i<items.length; i++){
+                    System.out.println("name- " + items[i].getName() + " | id- " +items[i].getId() );
                 }
 
             } else if (select == 2) {
