@@ -120,7 +120,7 @@ public class Tracker {
 
       int index=indexOf(id);
 
-      for (int i = 0; i < position; i++) {
+
           if (index!=-1) {
               result = true;
               items[indexOf(id)] = null;
@@ -129,17 +129,13 @@ public class Tracker {
               int distPos = index;
               int size = position - index;
               System.arraycopy(items, start, items, distPos, size);
-              break;
+
           }
-      }
+
 
       items[position - 1] = null;
       position--;
 return result;
     }
-
-
-
-
 }
 
