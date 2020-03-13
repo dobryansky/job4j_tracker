@@ -89,7 +89,6 @@ public class StartUI {
         Item newName = new Item(name);
         if (tracker.replace(id, newName)) {
             System.out.println("Item was edited");
-
         }
 
         else {
