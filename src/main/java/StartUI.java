@@ -1,8 +1,4 @@
 public class StartUI {
-    static Item item;
-    static String id, name;
-    static Item[] items;
-    static String msg;
 
     public void init(Input input, Tracker tracker) {
         boolean run = true;
@@ -20,9 +16,9 @@ public class StartUI {
             } else if (select == 3) {
                 StartUI.deleteItem(input, tracker);
             } else if (select == 4) {
-                StartUI.findbyID(input, tracker);
+                StartUI.findByID(input, tracker);
             } else if (select == 5) {
-                StartUI.findbyName(input, tracker);
+                StartUI.findByName(input, tracker);
             } else if (select == 6) {
                 run = false;
             }
@@ -61,15 +57,14 @@ public class StartUI {
 
     public static void createItem(Input input, Tracker tracker) {
         System.out.println("=== Create a new Item ====");
-        msg = "Input Item name :";
-        name = input.askStr(msg);
-        item = new Item(name);
+        String name = input.askStr("Input Item name :");
+        Item item = new Item(name);
         tracker.add(item);
     }
 
     public static void showItems(Input input, Tracker tracker) {
         System.out.println("=== Showing all items ====");
-        items = tracker.findAll();
+        Item[] items = tracker.findAll();
         for (Item value : items) {
             System.out.println("name- " + value.getName() + " | id- " + value.getId());
         }
@@ -77,44 +72,63 @@ public class StartUI {
 
     public static void editItem(Input input, Tracker tracker) {
         System.out.println("=== Edit item ====");
-        msg = "Input items id, need to replace :";
-        id = input.askStr(msg);
-        item = tracker.findById(id);
+        String id = input.askStr("Input items id, need to rename :");
+
+        Item item = tracker.findById(id);
         if (item != null) {
-            System.out.print("Input item's new name: ");
-            name = input.askStr(msg);
+            String name = input.askStr("Input item's new name: ");
             item.setName(name);
             tracker.replace(item.getId(), item);
+        } else {
+            System.out.println("ERROR!!!! There is no item with such ID!");
         }
+
+
+
+       /* String name = input.askStr("Input item's new name: ");
+        Item newName = new Item(name);
+        if (tracker.replace(id, newName)) {
+            System.out.println("Item was edited");
+
+        }
+
+        else {
+            System.out.println("ERROR!!!! There is no item with such ID!");
+        }
+
+        */
     }
 
     public static void deleteItem(Input input, Tracker tracker) {
         System.out.println("=== Delete item ====");
-        msg = "Input items id, need Delete :";
-        id = input.askStr(msg);
-        item = tracker.findById(id);
-        String needDelete = item.getId();
-        tracker.delete(needDelete);
+        String id = input.askStr("Input items id, need Delete :");
+        Item item = tracker.findById(id);
+        if (item != null) {
+            String needDelete = item.getId();
+            tracker.delete(needDelete);
+            System.out.println("Item was deleted successfully");
+        } else {
+            System.out.println("ERROR!!!! There is no item with such ID!");
+        }
     }
 
-    public static void findbyID(Input input, Tracker tracker) {
+    public static void findByID(Input input, Tracker tracker) {
         System.out.println("=== Find item by Id ====");
-        msg = "Input items id, need to Find";
-        id = input.askStr(msg);
-        item = tracker.findById(id);
+        String id = input.askStr("Input items id, need to Find");
+        Item item = tracker.findById(id);
         if (item != null) {
             showItem(item);
+        } else {
+            System.out.println("ERROR!!!! There is no item with such ID!");
         }
     }
 
-    public static void findbyName(Input input, Tracker tracker) {
+    public static void findByName(Input input, Tracker tracker) {
         System.out.println("=== Find item by name ===");
-        msg = "Input items' name: ";
-        name = input.askStr(msg);
-        items = tracker.findByName(name);
-        if (items != null) {
-            showItems(items);
-        }
+        String name = input.askStr("Input items' name: ");
+        Item[] items = tracker.findByName(name);
+        showItems(items);
+
     }
 
 
