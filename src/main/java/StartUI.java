@@ -1,39 +1,12 @@
 public class StartUI {
 
-/*    public void init(Input input, Tracker tracker) {
-        boolean run = true;
-
-        while (run) {
-            this.showMenu();
-            String msg = "Select :";
-            int select = input.askInt(msg);
-            if (select == 0) {
-                StartUI.createItem(input, tracker);
-            } else if (select == 1) {
-                StartUI.showItems(input, tracker);
-            } else if (select == 2) {
-                StartUI.editItem(input, tracker);
-            } else if (select == 3) {
-                StartUI.deleteItem(input, tracker);
-            } else if (select == 4) {
-                StartUI.findByID(input, tracker);
-            } else if (select == 5) {
-                StartUI.findByName(input, tracker);
-            } else if (select == 6) {
-                run = false;
-            }
-        }
-
-    }*/
-
-
-
 
     public static void showItem(Item item) {
         if (item != null) {
             System.out.println("NAME: " + item.getName() + ", ID: " + item.getId());
         }
     }
+
 
     public static void showItems(Item[] items) {
         if (items.length > 0) {
@@ -101,12 +74,6 @@ public class StartUI {
 
     }
 
-
-  /*  public static void main(String[] args) {
-        Input input = new ConsoleInput();
-        Tracker tracker = new Tracker();
-        new StartUI().init(input, tracker);
-    }*/
 
     public void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
