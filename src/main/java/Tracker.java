@@ -116,26 +116,18 @@ public class Tracker {
      * @return result
      */
   public boolean delete(String id) {
-      boolean result =false;
-
-      int index=indexOf(id);
-
-
-          if (index!=-1) {
-              result = true;
-              items[indexOf(id)] = null;
-
-              int start = index + 1;
-              int distPos = index;
-              int size = position - index;
-              System.arraycopy(items, start, items, distPos, size);
-
-          }
-
-
-      items[position - 1] = null;
-      position--;
-return result;
-    }
+      int index = indexOf(id);
+      boolean rsl = false;
+      if (index != -1) {
+          int start = index + 1;
+          int distPos = index;
+          int size = position - index;
+          System.arraycopy(items, start, items, distPos, size);
+          items[position] = null;
+          position--;
+          rsl = true;
+      }
+      return rsl;
+  }
 }
 
