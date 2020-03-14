@@ -9,7 +9,7 @@ public class IDAction implements UserAction {
         String id = input.askStr("Input items id, need to Find");
         Item item = tracker.findById(id);
         if (item != null) {
-            System.out.println("NAME: " + item.getName() + ", ID: " + item.getId());
+            StartUI.showItem(item);
         } else {
             System.out.println("ERROR!!!! There is no item with such ID!");
         }
