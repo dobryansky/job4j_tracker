@@ -1,4 +1,7 @@
+
+
 public class ValidateInput extends ConsoleInput {
+
     @Override
     public int askInt(String question) {
         boolean invalid = true;
