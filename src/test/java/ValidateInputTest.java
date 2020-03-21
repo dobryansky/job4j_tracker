@@ -12,23 +12,25 @@ public class ValidateInputTest {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;
         System.setOut(new PrintStream(mem));
-        String[] data = {"one", "1"};
-        ValidateInput input = new ValidateStubInput(data);
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[] {"one", "1"})
+        );
         input.askInt("Enter");
         assertThat(
                 mem.toString(),
                 is(String.format("Please enter validate data again.%n"))
         );
         System.setOut(out);
-}
+    }
+
     @Test
     public void whenOutOfRange() {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;
         System.setOut(new PrintStream(mem));
-        String[] data = {"3", "0"};
-        ValidateInput input = new ValidateStubInput(data);
-        input.askInt("Enter", 1);
+       String[] data = {"3", "1"};
+        ValidateInput input = new ValidateInput(new StubInput(data));
+        input.askInt("Enter", 2);
         assertThat(
                 mem.toString(),
                 is(String.format("Please select key from menu.%n"))
