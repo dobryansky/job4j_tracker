@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class DeleteAction implements UserAction {
     @Override
     public String name() {
@@ -6,7 +8,7 @@ public class DeleteAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        Item[] items = tracker.findAll();
+        List<Item> items = tracker.findAll();
         System.out.println("List of items on Tracker:");
         StartUI.showItems(items);
         String id = input.askStr("Please enter the item id you want to delete: ");

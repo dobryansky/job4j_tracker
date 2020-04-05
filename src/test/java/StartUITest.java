@@ -2,6 +2,8 @@
 import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -14,8 +16,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         CreateAction createAction=new CreateAction();
         createAction.execute(input, tracker);
-        //StartUI.createItem(input, tracker);
-        Item created = tracker.findAll()[0];
+        Item created = tracker.findAll().get(0);
         Item expected = new Item("Fix PC");
         assertThat(created.getName(), is(expected.getName()));
     }
@@ -59,7 +60,9 @@ public class StartUITest {
                 new String[] {"0"}
         );
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[] { action });
+        List<UserAction> menu = new ArrayList<>();
+        menu.add(action);
+        new StartUI().init(input, new Tracker(), menu);
         assertThat(action.isCall(), is(true));
     }
 
@@ -72,7 +75,9 @@ public class StartUITest {
                 new String[] {"0"}
         );
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[] { action });
+        List<UserAction> menu = new ArrayList<>();
+        menu.add(action);
+        new StartUI().init(input, new Tracker(), menu);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")
                 .add("0. Stub action")

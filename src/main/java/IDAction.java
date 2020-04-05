@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class IDAction implements UserAction {
     @Override
     public String name() {
@@ -9,7 +11,7 @@ public class IDAction implements UserAction {
         String id = input.askStr("Input items id, need to Find");
         Item item = tracker.findById(id);
         if (item != null) {
-            StartUI.showItem(item);
+            StartUI.showItem((List<Item>) item);
         } else {
             System.out.println("ERROR!!!! There is no item with such ID!");
         }

@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class ShowAction implements UserAction {
     @Override
     public String name() {
@@ -6,7 +8,7 @@ public class ShowAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-       Item[] items = tracker.findAll();
+        List<Item> items = tracker.findAll();
        StartUI.showItems(items);
         return true;
     }

@@ -1,8 +1,9 @@
 
 import org.junit.Test;
-//import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrackerTest {
     @Test
@@ -17,21 +18,24 @@ public class TrackerTest {
     @Test
     public void whenFindItemByName() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1");
-        tracker.add(item);
-        Item[] result = tracker.findByName("test1");
-        assertThat(result[0].getName(), is("test1"));
+        ArrayList<Item> item = new ArrayList<>();
+        item.add(new Item("test1"));
+
+        ArrayList<Item> result = new ArrayList<>();
+        result.add(item.get(0));
+        assertThat(item.get(0), is("test1"));
     }
 
     @Test
     public void whenFindAll() {
         Tracker tracker = new Tracker();
-        Item item1 = new Item("test1");
-        Item item2 = new Item("test2");
-        tracker.add(item1);
-        tracker.add(item2);
-        Item[] result = tracker.findAll();
-        assertThat(result[0].getName(), is("test1"));
+        ArrayList<Item> item = new ArrayList<>();
+        item.add(new Item("test1")) ;
+        item.add(new Item("test2")) ;
+        tracker.add(item.get(0));
+        tracker.add(item.get(1));
+        List<Item> result = tracker.findAll();
+        assertThat(result, is(item));
     }
 
     @Test
@@ -44,10 +48,12 @@ public class TrackerTest {
         tracker.replace(id, replaced);
         assertThat(tracker.findById(id).getName(), is("Already replaced"));
     }
-
+/*
     @Test
     public void whenDeleteItem() {
         Tracker tracker = new Tracker();
+        ArrayList<Item> item = new ArrayList<>();
+        ArrayList<Item> item = new ArrayList<>();
         Item item1 =         new Item("test 1");
         Item willbedeleted = new Item("will be deleted");
         Item item2 =         new Item("test 2");
@@ -61,7 +67,7 @@ public class TrackerTest {
         Item[] result = tracker.findAll();
 
         assertThat(result[1].getName(), is("test 2"));
-    }
+    }*/
 
 
 

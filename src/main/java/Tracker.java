@@ -1,6 +1,7 @@
 
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,12 +12,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
-
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
+    private  List<Item> items = new ArrayList<>();
 
     /**
      * Метод реализующий добавление заявки в хранилище
@@ -24,8 +20,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[position] = item;
-        this.position++;
+        items.add(item);
         return item;
     }
 
@@ -44,8 +39,8 @@ public class Tracker {
      *
      * @return возвращает массив заявок без null элементов.
      */
-    public Item[] findAll(){
-        return Arrays.copyOf(items, position);
+    public List<Item> findAll(){
+        return items;
     }
     /**
      * Метод находит все заявки с заданным именем заявки.
@@ -53,17 +48,14 @@ public class Tracker {
      * @return возвращает массив заявок с заданным именем без null элементов.
      */
 
-    public Item[] findByName(String key){
-        Item[] itemsCopy = new Item[100];
-        int counter = 0;
-        for (int i = 0; i < position; i++) {
-            if (this.items[i].getName().equals(key)) {
-                itemsCopy[counter] = this.items[i];
-                counter++;
+    public List<Item> findByName(String key) {
+        List<Item> item = new ArrayList<>();
+        for (Item index : items) {
+            if (index.getName().equals(key)) {
+                item.add(index);
             }
         }
-
-        return Arrays.copyOf(itemsCopy, counter);
+        return item;
     }
     /**
      * Метод ищет заявки с заданным именем id.
@@ -74,7 +66,8 @@ public class Tracker {
         // Находим индекс
         int index = indexOf(id);
         // Если индекс найден возвращаем item, иначе null
-        return index != -1 ? items[index] : null;
+
+        return index != -1 ? items.get(index) : null;
     }
     /**
      * Метод , который возвращает index по id.
@@ -83,11 +76,13 @@ public class Tracker {
      */
     private int indexOf(String id) {
         int rsl = -1;
-        for (int index = 0; index < position; index++) {
-            if (items[index].getId().equals(id)) {
+        int index = 0;
+        for (Item check : items) {
+            if (check.getId().equals(id)) {
                 rsl = index;
-                break;
             }
+            index++;
+
         }
         return rsl;
     }
@@ -101,12 +96,10 @@ public class Tracker {
         boolean result = false;
         int index= indexOf(id);
         if (index!=-1) {
-            result = true;
-
-            item.setId(id);
-            items[index] = item;
+            item.setId(items.get(index).getId());
+            items.set(index, item);
+            result=true;
         }
-
         return result;
 
     }
@@ -116,18 +109,14 @@ public class Tracker {
      * @return result
      */
   public boolean delete(String id) {
+
+      boolean result = false;
       int index = indexOf(id);
-      boolean rsl = false;
       if (index != -1) {
-          int start = index + 1;
-          int distPos = index;
-          int size = position - index;
-          System.arraycopy(items, start, items, distPos, size);
-          items[position] = null;
-          position--;
-          rsl = true;
+          items.remove(index);
+          result = true;
       }
-      return rsl;
+      return result;
   }
 }
 
